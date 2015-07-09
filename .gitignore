@@ -1,0 +1,6 @@
+.idea/**
+venv/**
+venv34/**
+*.pyc
+tools/xlmon/config.py
+scratch/**
