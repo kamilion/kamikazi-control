@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 __author__ = 'kamilion@gmail.com'
 from flask import Flask, Response
+import unicodedata
+
+def clean_filename(filename):
+    validchars = "abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789"
+    if (not isinstance(filename, str)) and (sys.version_info.major != 2):
+        filename = unicodedata.normalize('NFKD', filename).encode('ASCII', 'ignore')
+    return str(''.join(c for c in filename if c in validchars))
+
 # import subprocess32 as subprocess  # uncomment for python2 compatibility
 import subprocess
 
@@ -16,7 +24,7 @@ def run_xen_cmd(cmd=["xl", "list", "-l"]):
 
 
 def list_xen():
-    cmd = ["kamikazi-get-vms-json.sh"]
+    cmd = ["kamikazi-get-running-vms-json.sh"]
     return run_xen_cmd(cmd)
 
 
